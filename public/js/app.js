@@ -5,6 +5,7 @@ let btnIntervalId;
 
 // Watch for button press
 function pullBTN() {
+  console.group('pull puck');
   btnIntervalId = setInterval(function() {
     const x = 0 | Math.random() * screen.availWidth;
     const y = 0 | Math.random() * screen.availHeight;
@@ -16,13 +17,7 @@ function pullBTN() {
         renderSquare(x, y);
       }
     });
-    // Puck.eval('BTN.read()', function(value) {
-    //   if (value) {
-    //     console.log('BTN: ', value);
-    //     renderSquare(x, y);
-    //   }
-    // });
-  }, 100);
+  }, 250);
 }
 
 function renderSquare(x, y) {
@@ -49,5 +44,6 @@ elDisconnect.addEventListener('click', function() {
   Puck.write('digitalWrite(LED2, false)\n', function() {
     // Wait for the LED to turn off before closing.
     Puck.close();
+    console.groupEnd();
   });
 });
