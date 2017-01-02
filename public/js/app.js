@@ -5,7 +5,8 @@ let btnIntervalId;
 
 // Watch for button press
 function pullBTN() {
-  console.group('pull puck');
+  console.log('skipping pullBTN for now');
+  return;
   btnIntervalId = setInterval(function() {
     const x = 0 | Math.random() * screen.availWidth;
     const y = 0 | Math.random() * screen.availHeight;
@@ -32,16 +33,17 @@ function renderSquare(x, y) {
 
 
 elConnect.addEventListener('click', function() {
-  console.log('Starting pull');
-  // Turning on the LED will connect
-  Puck.write('digitalWrite(LED2, true)\n');
-  pullBTN();
+  console.group('Starting pull');
+  Puck.eval('connect()', () => {
+    // Wait until it exicutes to start the pull.
+    pullBTN();
+  });
 });
 
 elDisconnect.addEventListener('click', function() {
   console.log('Stop pull');
   clearInterval(btnIntervalId);
-  Puck.write('digitalWrite(LED2, false)\n', function() {
+  Puck.eval('disconnect()', () => {
     // Wait for the LED to turn off before closing.
     Puck.close();
     console.groupEnd();
