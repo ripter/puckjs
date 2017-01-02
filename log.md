@@ -118,4 +118,4 @@ So what good is `Puck.eval`? It is super awesome at the thing it is designed to 
 
 `Puck.write` runs any number of javascript commands and exicutes with when it sees a `\n` newline. It is great if the result is for a human or you do not care about the result. It sucks when you want the results.
 
-`Puck.eval` runs a function and returns the results. The function does not have to be on the device, but it makes sense.
+`Puck.eval` runs a function and returns the results. The function does not have to be on the device, but it makes sense to have it stored there. The puck has memmory to store code and the resuting payload sent over bluetooth will be smaller. ** Note: ** Make sure your functons return something. If you `Puck.eval` a function that does not return, we will see a JSON error again.

@@ -30,4 +30,7 @@ function nextLight() {
   if (nextLight) {
     digitalWrite(nextLight, true);
   }
+
+  // Functions callable by Puck.eval need to return a value.
+  return index;
 }
