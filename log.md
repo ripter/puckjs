@@ -1,5 +1,6 @@
 # First Steps
 We need a site that can connect to the puck. The IDE can do this, and we can use the same js file. https://puck-js.com/puck.js
+You can read up on more information on it with https://github.com/espruino/EspruinoDocs/blob/master/puck/Puck.js%20Web%20Bluetooth.md
 
 With that we can talk to the puck on the command line.
 ```
@@ -135,3 +136,7 @@ I've found with some experimentation that pulling every 50 or 100 milliseconds w
 
 ### Puck keeps crashing
 So I have an ongoing problem. The puck freezes. I suspect it is because I am sending too many pull requests too fast. I need ot step up my game to handle this communication.
+
+I have two ways I could try and fix this issue. The first would be to not send a new command until I have recieved something back from the last command. That would solve the backlog issue.
+
+I could also stop using `Puck.eval` and `Puck.write` and use `Puck.connection` instead. This would give use full control of how we send and reconstruct the data from the Bluetooth LTE. We might need this level of control, but I'm intrested to see how much longer we can hold out. Let's try fixing it with our trusty `Puck.eval` and `Puck.write` methods.
