@@ -1,3 +1,4 @@
+reset();
 console.log('Battery Level: ', Puck.getBatteryPercentage());
 var log;
 var watchId;
@@ -10,6 +11,7 @@ function connect() {
 
   // Watch all button press, both the down and up event.
   watchId = setWatch(function(data) {
+    //console.log('BTN', data.state);
     renderBusy(data.state);
     // Add it to the log.
     log.push(data);
@@ -56,10 +58,10 @@ function renderDeactive() {
 function renderBusy(isDown) {
   if (isDown) {
     digitalWrite(LED1, true);
-    digitalWrite(LED2, false);
+    //digitalWrite(LED2, false);
   } else {
-    digitalWrite(LED1, true);
-    digitalWrite(LED2, false);
+    digitalWrite(LED1, false);
+    //digitalWrite(LED2, false);
   }
 }
 
@@ -82,3 +84,5 @@ function getLastMS(delay) {
 
   return tail;
 }
+
+//connect();
