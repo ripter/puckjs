@@ -126,3 +126,12 @@ So what good is `Puck.eval`? It is super awesome at the thing it is designed to 
 Now that we understand `Puck.write` and `Puck.eval` better. We can see some of the bugs causing us so many issues before. First, let's wait for the puck to connect before starting the polling loop.
 
 Let's start by writing some better code for the puck. Some APIs that we can call. We can even add some render functions to show that the code is running. Then we update app.js to use the new API.
+
+My idea is to log the button press up and down. Then we can give the user some help by adjusting for lag between devices.
+
+
+I've found with some experimentation that pulling every 50 or 100 milliseconds will crash the puck. Taking the battery out and back in again will fix the issue. 200 or 250 seem to work. But that is slow enough that the user will have presses that are missed. Let's use the puck `isDown` method to help adjust for this diffrence.
+
+
+### Puck keeps crashing
+So I have an ongoing problem. The puck freezes. I suspect it is because I am sending too many pull requests too fast. I need ot step up my game to handle this communication.

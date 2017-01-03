@@ -5,20 +5,25 @@ let btnIntervalId;
 
 // Watch for button press
 function pullBTN() {
-  console.log('skipping pullBTN for now');
-  return;
+  const SPEED = 500;
   btnIntervalId = setInterval(function() {
     const x = 0 | Math.random() * screen.availWidth;
-    const y = 0 | Math.random() * screen.availHeight;
+    const y = 0 | Math.random() * (screen.availHeighti / 2);
 
-    Puck.write('isDown\n', function(isDown) {
-      console.log('d', isDown);
+    // If we lost connection, stop the loop.
+    if (!Puck.isConnected()) {
+      console.log('Cancel setInterval, Puck not connected.');
+      clearInterval(btnIntervalId);
+      return;
+    }
 
+    Puck.eval(`isDown(${SPEED})`, function(isDown) {
       if (isDown) {
+        console.log('d', isDown);
         renderSquare(x, y);
       }
     });
-  }, 250);
+  }, SPEED);
 }
 
 function renderSquare(x, y) {
@@ -34,7 +39,7 @@ function renderSquare(x, y) {
 
 elConnect.addEventListener('click', function() {
   console.group('Starting pull');
-  Puck.eval('connect()', () => {
+  Puck.write('connect()', () => {
     // Wait until it exicutes to start the pull.
     pullBTN();
   });
@@ -43,9 +48,10 @@ elConnect.addEventListener('click', function() {
 elDisconnect.addEventListener('click', function() {
   console.log('Stop pull');
   clearInterval(btnIntervalId);
-  Puck.eval('disconnect()', () => {
+  Puck.write('disconnect()', () => {
     // Wait for the LED to turn off before closing.
     Puck.close();
     console.groupEnd();
   });
+  Puck.close();
 });
