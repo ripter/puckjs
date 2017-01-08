@@ -9,6 +9,8 @@ function connect() {
   // Render that we are logging the button.
   renderActive();
 
+  // Stop watching the button.
+  if (watchId) { clearWatch(watchId); }
   // Watch all button press, both the down and up event.
   watchId = setWatch(function(data) {
     //console.log('BTN', data.state);

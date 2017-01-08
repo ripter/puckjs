@@ -23,7 +23,8 @@ function pullBTN() {
 
     // Wait for the puck to respond before sending another message.
     shouldWait = true;
-    Puck.eval(`isDown(${SPEED})`, function(isDown) {
+    Puck.write(`isDown(${SPEED})`, function(isDown) {
+      console.log('isDown', arguments);
       shouldWait = false;
       if (isDown) {
         console.log('d', isDown);
@@ -58,7 +59,7 @@ elDisconnect.addEventListener('click', function() {
   Puck.write('disconnect();\n', () => {
     // Wait for the LED to turn off before closing.
     if (Puck.isConnected()) {
-      Puck.close();
+      // Puck.close();
     }
     console.groupEnd();
   });
